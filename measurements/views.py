@@ -10,7 +10,7 @@ def measurement_list(request):
     context = {
         'measurement_list': measurements
     }
-    return render(request, 'Measurement/measurements.html', context)
+    return render(request, 'Measurement/pedidos.html', context)
 
 def measurement_create(request):
     if request.method == 'POST':
@@ -28,4 +28,4 @@ def measurement_create(request):
         'form': form,
     }
 
-    return render(request, 'Measurement/measurementCreate.html', context)
+    return render(request, 'Measurement/pedidocreate.html', context)
