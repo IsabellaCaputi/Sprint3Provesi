@@ -49,7 +49,7 @@ provider "aws" {
 # Variables locales usadas en la configuración de Terraform.
 locals {
   project_name = "${var.project_prefix}-circuit-breaker"
-  repository   = "https://github.com/ISIS2503/ISIS2503-MonitoringApp.git"
+  repository   = "https://github.com/IsabellaCaputi/Sprint3Provesi.git"
   branch       = "Circuit-Breaker"
 
   common_tags = {
