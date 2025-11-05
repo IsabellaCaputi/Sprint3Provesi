@@ -25,27 +25,37 @@ services:
 upstreams:
   - name: alarms_upstream
     targets:
-      - target: <ip-privada-alarms-app-a>:8080
-        weight: 100
-      - target: <ip-privada-alarms-app-b>:8080
-        weight: 100
-      - target: <ip-privada-alarms-app-c>:8080
-        weight: 100
-    #healthchecks:
-    #  threshold: 0
-    #  active:
-    #    http_path: /health/
-    #    timeout: 0
-    #    healthy:
-    #      successes: 0
-    #      interval: 0
-    #    unhealthy:
-    #      tcp_failures: 0
-    #      interval: 0
+    healthchecks:
+      threshold: 50
+      active:
+        http_path: /health/
+        timeout: 0.3
+        healthy:
+          successes: 5
+          interval: 1
+        unhealthy:
+          tcp_failures: 1
+          interval: 3
 
   - name: monitoring_upstream
     targets:
-      - target: <ip-privada-monitoring-app>:8080
+      - target: 172.31.22.243:8080
         weight: 100
+      - target: 172.31.17.76:8080
+        weight: 100
+      - target: 172.31.16.185:8080
+        weight: 100
+
+    healthchecks:
+      threshold: 50
+      active:
+        http_path: /health/
+        timeout: 0.3
+        healthy:
+          successes: 5
+          interval: 1
+        unhealthy:
+          tcp_failures: 1
+          interval: 3
 
 
