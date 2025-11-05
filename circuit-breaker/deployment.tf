@@ -219,11 +219,11 @@ resource "aws_instance" "alarms" {
               mkdir -p /labs
               cd /labs
 
-              if [ ! -d ISIS2503-MonitoringApp ]; then
+              if [ ! -d Sprint3Provesi ]; then
                 git clone ${local.repository}
               fi
 
-              cd ISIS2503-MonitoringApp
+              cd Sprint3Provesi
               git fetch origin ${local.branch}
               git checkout ${local.branch}
               sudo pip3 install --upgrade pip --break-system-packages
@@ -258,11 +258,11 @@ resource "aws_instance" "monitoring" {
               mkdir -p /labs
               cd /labs
 
-              if [ ! -d ISIS2503-MonitoringApp ]; then
+              if [ ! -d Sprint3Provesi ]; then
                 git clone ${local.repository}
               fi
 
-              cd ISIS2503-MonitoringApp
+              cd Sprint3Provesi
               git fetch origin ${local.branch}
               git checkout ${local.branch}
               sudo pip3 install --upgrade pip --break-system-packages
