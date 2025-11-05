@@ -239,6 +239,8 @@ resource "aws_instance" "alarms" {
 # Recurso. Define la instancia EC2 para la aplicación de Monitoring (Django).
 # Esta instancia incluye un script de creación para instalar la aplicación de Monitoring y aplicar las migraciones.
 resource "aws_instance" "monitoring" {
+  for_each = toset(["a", "b", "c"])
+  
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   associate_public_ip_address = true
@@ -271,8 +273,8 @@ resource "aws_instance" "monitoring" {
               EOT
 
   tags = merge(local.common_tags, {
-    Name = "${var.project_prefix}-monitoring"
-    Role = "monitoring-app"
+    Name = "${var.project_prefix}-monitoring-${each.key}"
+    Role = "monitoring"
   })
 
   depends_on = [aws_instance.database]
@@ -293,7 +295,7 @@ output "alarms_public_ips" {
 # Salida. Muestra la dirección IP pública de la instancia de la aplicación de Monitoring.
 output "monitoring_public_ip" {
   description = "Public IP address for the monitoring service application"
-  value       = aws_instance.monitoring.public_ip
+  value       = { for id, instance in aws_instance.monitoring : id => instance.public_ip }
 }
 
 # Salida. Muestra las direcciones IP privadas de las instancias de la aplicación de alarmas.
@@ -305,7 +307,7 @@ output "alarms_private_ips" {
 # Salida. Muestra la dirección IP privada de la instancia de la aplicación de Monitoring.
 output "monitoring_private_ip" {
   description = "Private IP address for the monitoring service application"
-  value       = aws_instance.monitoring.private_ip
+  value       = { for id, instance in aws_instance.monitoring : id => instance.private_ip }
 }
 
 # Salida. Muestra la dirección IP privada de la instancia de la base de datos PostgreSQL.
