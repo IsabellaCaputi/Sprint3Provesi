@@ -44,7 +44,7 @@ provider "aws" {
 # Variables locales usadas en la configuración de Terraform.
 locals {
   project_name = "${var.project_prefix}-authentication"
-  repository   = "https://github.com/ISIS2503/ISIS2503-MonitoringApp-Auth0.git"
+  repository   = "https://github.com/sofiavasqueztoro/DesignStormers-MonitoringApp-Auth0.git"
 
   common_tags = {
     Project   = local.project_name
