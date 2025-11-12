@@ -179,11 +179,11 @@ resource "aws_instance" "monitoring" {
               mkdir -p /labs
               cd /labs
 
-              if [ ! -d ISIS2503-MonitoringApp-Auth0 ]; then
+              if [ ! -d DesignStormers-MonitoringApp-Auth0 ]; then
                 git clone ${local.repository}
               fi
 
-              cd ISIS2503-MonitoringApp-Auth0
+              cd DesignStormers-MonitoringApp-Auth0
               sudo pip3 install --upgrade pip --break-system-packages
               sudo pip3 install -r requirements.txt --break-system-packages
 
