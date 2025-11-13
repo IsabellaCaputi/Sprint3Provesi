@@ -176,19 +176,19 @@ resource "aws_instance" "monitoring" {
               sudo apt-get update -y
               sudo apt-get install -y python3-pip git build-essential libpq-dev python3-dev
 
+              sudo bash -c '
               mkdir -p /labs
               cd /labs
-
               if [ ! -d DesignStormers-MonitoringApp-Auth0 ]; then
-                git clone ${local.repository}
+                git clone https://github.com/sofiavasqueztoro/DesignStormers-MonitoringApp-Auth0.git
               fi
-
               cd DesignStormers-MonitoringApp-Auth0
-              sudo pip3 install --upgrade pip --break-system-packages
-              sudo pip3 install -r requirements.txt --break-system-packages
+              pip3 install --upgrade pip --break-system-packages
+              pip3 install -r requirements.txt --break-system-packages
+              python3 manage.py makemigrations
+              python3 manage.py migrate
+              '
 
-              sudo python3 manage.py makemigrations
-              sudo python3 manage.py migrate
               EOT
 
   tags = merge(local.common_tags, {
